@@ -479,8 +479,41 @@ function getMatrixProduct(m1, m2) {
  *    [    ,   ,    ]]
  *
  */
-function evaluateTicTacToePosition(/* position */) {
-  throw new Error('Not implemented');
+function evaluateTicTacToePosition(position) {
+  if (position.some((value) => value.join('') === 'XXX')) {
+    return 'X';
+  }
+  if (position.some((value) => value.join('') === '000')) {
+    return '0';
+  }
+
+  if (position.reduce((sum, __, index) => sum + position[index][0], '') === 'XXX'
+      || position.reduce((sum, __, index) => sum + position[index][1], '') === 'XXX'
+      || position.reduce((sum, __, index) => sum + position[index][2], '') === 'XXX'
+  ) {
+    return 'X';
+  }
+
+  if (position.reduce((sum, __, index) => sum + position[index][0], '') === '000'
+      || position.reduce((sum, __, index) => sum + position[index][1], '') === '000'
+      || position.reduce((sum, __, index) => sum + position[index][2], '') === '000'
+  ) {
+    return '0';
+  }
+
+  if (position.reduce((sum, __, index) => sum + position[index][0 + sum.length], '') === 'XXX'
+  || position.reduce((sum, element, index) => sum + position[index][element.length - sum.length - 1], '') === 'XXX'
+  ) {
+    return 'X';
+  }
+
+  if (position.reduce((sum, __, index) => sum + position[index][0 + sum.length], '') === '000'
+  || position.reduce((sum, element, index) => sum + position[index][element.length - sum.length - 1], '') === '000'
+  ) {
+    return '0';
+  }
+
+  return undefined;
 }
 
 
